@@ -2,27 +2,40 @@
 /*
  * Copyright 2021 Marek Kobida
  */
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _constraints, _type;
 Object.defineProperty(exports, "__esModule", { value: true });
 const Database_1 = __importDefault(require("../Database"));
 class Column {
     constructor(name) {
         this.name = name;
-        this.#constraints = [];
+        _constraints.set(this, []);
+        _type.set(this, void 0);
     }
-    #constraints;
-    #type;
     addConstraint(constraint) {
-        return (this.#constraints = [...this.#constraints, constraint]);
+        return (__classPrivateFieldSet(this, _constraints, [...__classPrivateFieldGet(this, _constraints), constraint]));
     }
     character(length) {
-        this.#type = `CHARACTER (${length})`;
+        __classPrivateFieldSet(this, _type, `CHARACTER (${length})`);
         return this;
     }
     characterVarying(length) {
-        this.#type = `CHARACTER VARYING (${length})`;
+        __classPrivateFieldSet(this, _type, `CHARACTER VARYING (${length})`);
         return this;
     }
     default(parameter) {
@@ -43,10 +56,10 @@ class Column {
     }
     timestamp(withTimeZone) {
         if (withTimeZone) {
-            this.#type = 'TIMESTAMP WITH TIME ZONE';
+            __classPrivateFieldSet(this, _type, 'TIMESTAMP WITH TIME ZONE');
         }
         else {
-            this.#type = 'TIMESTAMP';
+            __classPrivateFieldSet(this, _type, 'TIMESTAMP');
         }
         return this;
     }
@@ -55,12 +68,13 @@ class Column {
         return this;
     }
     uuid() {
-        this.#type = 'UUID';
+        __classPrivateFieldSet(this, _type, 'UUID');
         return this;
     }
     toString() {
-        const sql = [this.name, this.#type, ...this.#constraints];
+        const sql = [this.name, __classPrivateFieldGet(this, _type), ...__classPrivateFieldGet(this, _constraints)];
         return sql.join(' ');
     }
 }
+_constraints = new WeakMap(), _type = new WeakMap();
 exports.default = Column;

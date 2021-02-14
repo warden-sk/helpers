@@ -2,17 +2,23 @@
 /*
  * Copyright 2021 Marek Kobida
  */
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _client;
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = __importDefault(require("pg"));
 class Database {
     constructor(uri) {
         this.uri = uri;
-        this.#client = new pg_1.default.Pool({ connectionString: this.uri });
+        _client.set(this, new pg_1.default.Pool({ connectionString: this.uri }));
     }
-    #client;
     // ?
     static escape(_1) {
         const _2 = [/CURRENT_TIMESTAMP/, /\(/];
@@ -20,7 +26,7 @@ class Database {
     }
     // ?
     async query(_1) {
-        const _2 = await this.#client.query(_1.toString());
+        const _2 = await __classPrivateFieldGet(this, _client).query(_1.toString());
         return Database.test1(_2.rows);
     }
     // ?
@@ -40,4 +46,5 @@ class Database {
         return _1.replace(/([A-Z])/g, (_2, _3) => `_${_3.toLowerCase()}`);
     }
 }
+_client = new WeakMap();
 exports.default = Database;

@@ -2,18 +2,31 @@
 /*
  * Copyright 2021 Marek Kobida
  */
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _columns;
 Object.defineProperty(exports, "__esModule", { value: true });
 const Column_1 = __importDefault(require("./Column"));
 class Table {
     constructor() {
-        this.#columns = [];
+        _columns.set(this, []);
     }
-    #columns;
     addColumn(column) {
-        return (this.#columns = [...this.#columns, column]);
+        return (__classPrivateFieldSet(this, _columns, [...__classPrivateFieldGet(this, _columns), column]));
     }
     character(columnName, length) {
         const column = new Column_1.default(columnName).character(length);
@@ -49,7 +62,8 @@ class Table {
         return column;
     }
     toString() {
-        return this.#columns.join();
+        return __classPrivateFieldGet(this, _columns).join();
     }
 }
+_columns = new WeakMap();
 exports.default = Table;
