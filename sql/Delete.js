@@ -1,4 +1,3 @@
-"use strict";
 /*
  * Copyright 2021 Marek Kobida
  */
@@ -18,38 +17,49 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _from, _returning, _where;
-Object.defineProperty(exports, "__esModule", { value: true });
-const Database_1 = __importDefault(require("../Database"));
-class Delete {
-    constructor() {
-        _from.set(this, void 0);
-        _returning.set(this, void 0);
-        _where.set(this, []);
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-    from(tableName) {
-        __classPrivateFieldSet(this, _from, tableName);
-        return this;
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "../Database"], factory);
     }
-    returning(...columns) {
-        __classPrivateFieldSet(this, _returning, columns);
-        return this;
-    }
-    where(parameters) {
-        Object.entries(Database_1.default.test2(parameters, Database_1.default.test4)).forEach(([columnName, parameter]) => __classPrivateFieldGet(this, _where).push(`${columnName} = ${Database_1.default.escape(parameter)}`));
-        return this;
-    }
-    toString() {
-        const sql = [];
-        sql.push(`DELETE FROM "${__classPrivateFieldGet(this, _from)}"`);
-        if (__classPrivateFieldGet(this, _where).length) {
-            sql.push(`WHERE ${__classPrivateFieldGet(this, _where).join(' AND ')}`);
+})(function (require, exports) {
+    "use strict";
+    var _from, _returning, _where;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    const Database_1 = __importDefault(require("../Database"));
+    class Delete {
+        constructor() {
+            _from.set(this, void 0);
+            _returning.set(this, void 0);
+            _where.set(this, []);
         }
-        if (__classPrivateFieldGet(this, _returning)) {
-            sql.push(`RETURNING ${__classPrivateFieldGet(this, _returning).length ? __classPrivateFieldGet(this, _returning).join() : '*'}`);
+        from(tableName) {
+            __classPrivateFieldSet(this, _from, tableName);
+            return this;
         }
-        return `${sql.join(' ')};`;
+        returning(...columns) {
+            __classPrivateFieldSet(this, _returning, columns);
+            return this;
+        }
+        where(parameters) {
+            Object.entries(Database_1.default.test2(parameters, Database_1.default.test4)).forEach(([columnName, parameter]) => __classPrivateFieldGet(this, _where).push(`${columnName} = ${Database_1.default.escape(parameter)}`));
+            return this;
+        }
+        toString() {
+            const sql = [];
+            sql.push(`DELETE FROM "${__classPrivateFieldGet(this, _from)}"`);
+            if (__classPrivateFieldGet(this, _where).length) {
+                sql.push(`WHERE ${__classPrivateFieldGet(this, _where).join(' AND ')}`);
+            }
+            if (__classPrivateFieldGet(this, _returning)) {
+                sql.push(`RETURNING ${__classPrivateFieldGet(this, _returning).length ? __classPrivateFieldGet(this, _returning).join() : '*'}`);
+            }
+            return `${sql.join(' ')};`;
+        }
     }
-}
-_from = new WeakMap(), _returning = new WeakMap(), _where = new WeakMap();
-exports.default = Delete;
+    _from = new WeakMap(), _returning = new WeakMap(), _where = new WeakMap();
+    exports.default = Delete;
+});

@@ -1,4 +1,3 @@
-"use strict";
 /*
  * Copyright 2021 Marek Kobida
  */
@@ -18,41 +17,52 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _columns, _from, _leftJoin, _where;
-Object.defineProperty(exports, "__esModule", { value: true });
-const Database_1 = __importDefault(require("../Database"));
-class Select {
-    constructor(...columns) {
-        _columns.set(this, []);
-        _from.set(this, void 0);
-        _leftJoin.set(this, void 0);
-        _where.set(this, []);
-        __classPrivateFieldSet(this, _columns, columns);
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-    from(tableName) {
-        __classPrivateFieldSet(this, _from, tableName);
-        return this;
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "../Database"], factory);
     }
-    join(tableName, l, r) {
-        __classPrivateFieldSet(this, _leftJoin, `INNER JOIN "${tableName}" ON ${l} = ${r}`);
-        return this;
-    }
-    where(parameters) {
-        Object.entries(Database_1.default.test2(parameters, Database_1.default.test4)).forEach(([columnName, parameter]) => __classPrivateFieldGet(this, _where).push(`${columnName} = ${Database_1.default.escape(parameter)}`));
-        return this;
-    }
-    toString() {
-        const sql = [];
-        sql.push(`SELECT ${__classPrivateFieldGet(this, _columns).length ? __classPrivateFieldGet(this, _columns).join() : '*'}`);
-        sql.push(`FROM "${__classPrivateFieldGet(this, _from)}"`);
-        if (__classPrivateFieldGet(this, _leftJoin)) {
-            sql.push(__classPrivateFieldGet(this, _leftJoin));
+})(function (require, exports) {
+    "use strict";
+    var _columns, _from, _leftJoin, _where;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    const Database_1 = __importDefault(require("../Database"));
+    class Select {
+        constructor(...columns) {
+            _columns.set(this, []);
+            _from.set(this, void 0);
+            _leftJoin.set(this, void 0);
+            _where.set(this, []);
+            __classPrivateFieldSet(this, _columns, columns);
         }
-        if (__classPrivateFieldGet(this, _where).length) {
-            sql.push(`WHERE ${__classPrivateFieldGet(this, _where).join(' AND ')}`);
+        from(tableName) {
+            __classPrivateFieldSet(this, _from, tableName);
+            return this;
         }
-        return `${sql.join(' ')};`;
+        join(tableName, l, r) {
+            __classPrivateFieldSet(this, _leftJoin, `INNER JOIN "${tableName}" ON ${l} = ${r}`);
+            return this;
+        }
+        where(parameters) {
+            Object.entries(Database_1.default.test2(parameters, Database_1.default.test4)).forEach(([columnName, parameter]) => __classPrivateFieldGet(this, _where).push(`${columnName} = ${Database_1.default.escape(parameter)}`));
+            return this;
+        }
+        toString() {
+            const sql = [];
+            sql.push(`SELECT ${__classPrivateFieldGet(this, _columns).length ? __classPrivateFieldGet(this, _columns).join() : '*'}`);
+            sql.push(`FROM "${__classPrivateFieldGet(this, _from)}"`);
+            if (__classPrivateFieldGet(this, _leftJoin)) {
+                sql.push(__classPrivateFieldGet(this, _leftJoin));
+            }
+            if (__classPrivateFieldGet(this, _where).length) {
+                sql.push(`WHERE ${__classPrivateFieldGet(this, _where).join(' AND ')}`);
+            }
+            return `${sql.join(' ')};`;
+        }
     }
-}
-_columns = new WeakMap(), _from = new WeakMap(), _leftJoin = new WeakMap(), _where = new WeakMap();
-exports.default = Select;
+    _columns = new WeakMap(), _from = new WeakMap(), _leftJoin = new WeakMap(), _where = new WeakMap();
+    exports.default = Select;
+});
