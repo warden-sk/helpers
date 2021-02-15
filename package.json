@@ -4,7 +4,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.14.28",
-    "@types/pg": "^7.14.9",
+    "@types/pg": "^7.14.10",
     "typescript": "^4.1.5"
   },
   "name": "@warden-sk/helpers",
