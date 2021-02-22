@@ -8,7 +8,7 @@
     "typescript": "^4.1.5"
   },
   "files": [
-    "./compiled/**/*"
+    "compiled"
   ],
   "name": "@warden-sk/helpers",
   "version": "1.0.0"
