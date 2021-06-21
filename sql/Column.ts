@@ -2,7 +2,7 @@
  * Copyright 2021 Marek Kobida
  */
 
-import Database from '../Database';
+import Database from '../Database.js';
 
 class Column {
   #constraints: string[] = [];

@@ -2,10 +2,10 @@
  * Copyright 2021 Marek Kobida
  */
 
-import Delete from './Delete';
-import Insert from './Insert';
-import Select from './Select';
-import Table from './Table';
+import Delete from './Delete.js';
+import Insert from './Insert.js';
+import Select from './Select.js';
+import Table from './Table.js';
 
 class SQL {
   static createTable(name: string, $: (t: Table) => void): string {

@@ -2,7 +2,7 @@
  * Copyright 2021 Marek Kobida
  */
 
-import Column from './Column';
+import Column from './Column.js';
 
 class Table {
   #columns: Column[] = [];
