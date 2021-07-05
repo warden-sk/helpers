@@ -3,9 +3,9 @@
     "pg": "^8.6.0"
   },
   "devDependencies": {
-    "@types/node": "^15.12.5",
+    "@types/node": "^16.0.0",
     "@types/pg": "^8.6.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.5"
   },
   "name": "@warden-sk/helpers",
   "repository": {
