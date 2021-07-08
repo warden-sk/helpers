@@ -3,8 +3,8 @@
     "pg": "^8.6.0"
   },
   "devDependencies": {
-    "@types/node": "^16.0.0",
-    "@types/pg": "^8.6.0",
+    "@types/node": "^16.0.1",
+    "@types/pg": "^8.6.1",
     "typescript": "^4.3.5"
   },
   "name": "@warden-sk/helpers",
